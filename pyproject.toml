@@ -12,6 +12,7 @@ dependencies = [
     "vectorbt",
     "asyncpg",
     "python-dotenv",
+    "pandas",
 ]
 
 [project.optional-dependencies]
