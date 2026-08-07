@@ -23,7 +23,7 @@ async def main() -> None:
 
     client = AlphaVantageClient(api_key=api_key)
     try:
-        candles = await client.fetch_candles("EUR_USD", granularity="60min", count=10)
+        candles = await client.fetch_candles("EUR_USD", granularity="daily", count=10)
         print(f"Hentet {len(candles)} candles")
         if candles:
             last = candles[-1]

@@ -8,7 +8,7 @@ async def sync_candles(
     client: AlphaVantageClient,
     store: CandleStore,
     instrument: str,
-    granularity: str = "60min",
+    granularity: str = "daily",
     count: int = 500,
 ) -> int:
     """Fetch OHLCV candles from Alpha Vantage and upsert them into storage. Returns the number fetched."""

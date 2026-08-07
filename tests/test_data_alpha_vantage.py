@@ -95,6 +95,49 @@ def test_fetch_candles_uses_daily_endpoint_for_non_intraday_granularity():
     assert "interval" not in params
 
 
+def test_parses_real_fx_daily_response_shape():
+    # Real response payload (trimmed) confirmed against a live free-tier key.
+    payload = {
+        "Meta Data": {
+            "1. Information": "Forex Daily Prices (open, high, low, close)",
+            "2. From Symbol": "EUR",
+            "3. To Symbol": "USD",
+            "4. Output Size": "Compact",
+            "5. Last Refreshed": "2026-08-06",
+            "6. Time Zone": "UTC",
+        },
+        "Time Series FX (Daily)": {
+            "2026-08-06": {"1. open": "1.15520", "2. high": "1.15590", "3. low": "1.15140", "4. close": "1.15240"},
+            "2026-08-05": {"1. open": "1.15300", "2. high": "1.15590", "3. low": "1.15250", "4. close": "1.15510"},
+        },
+    }
+    fake_session = _FakeSession(payload)
+    client = AlphaVantageClient(api_key="fake-key")
+    client._session = fake_session
+
+    candles = asyncio.run(client.fetch_candles("EUR_USD", granularity="daily"))
+
+    assert len(candles) == 2
+    assert candles[0].timestamp.isoformat() == "2026-08-05T00:00:00+00:00"
+    assert candles[0].close == 1.1551
+    assert candles[1].timestamp.isoformat() == "2026-08-06T00:00:00+00:00"
+    assert candles[1].open == 1.1552
+
+
+def test_defaults_to_daily_granularity():
+    fake_session = _FakeSession(
+        {"Time Series FX (Daily)": {"2024-01-01": {"1. open": "1.1", "2. high": "1.1", "3. low": "1.1", "4. close": "1.1"}}}
+    )
+    client = AlphaVantageClient(api_key="fake-key")
+    client._session = fake_session
+
+    candles = asyncio.run(client.fetch_candles("EUR_USD"))
+
+    _, params = fake_session.calls[0]
+    assert params["function"] == "FX_DAILY"
+    assert candles[0].timeframe == "daily"
+
+
 def test_raises_alpha_vantage_error_on_rate_limit_response():
     fake_session = _FakeSession({"Note": "Thank you for using Alpha Vantage! Our standard API rate limit is..."})
     client = AlphaVantageClient(api_key="fake-key")

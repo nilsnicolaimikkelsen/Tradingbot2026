@@ -12,6 +12,9 @@ from data.models import Candle
 
 BASE_URL = "https://www.alphavantage.co/query"
 
+# FX_INTRADAY requires an Alpha Vantage premium plan (confirmed empirically:
+# a free-tier key gets an "Information": "This is a premium endpoint" response).
+# FX_DAILY works on the free tier, so that's the default granularity.
 _INTRADAY_INTERVALS = {"1min", "5min", "15min", "30min", "60min"}
 
 
@@ -29,7 +32,7 @@ class AlphaVantageClient:
             self._session = aiohttp.ClientSession()
         return self._session
 
-    async def fetch_candles(self, instrument: str, granularity: str = "60min", count: int = 500) -> list[Candle]:
+    async def fetch_candles(self, instrument: str, granularity: str = "daily", count: int = 500) -> list[Candle]:
         from_symbol, to_symbol = instrument.split("_")
         outputsize = "full" if count > 100 else "compact"
 

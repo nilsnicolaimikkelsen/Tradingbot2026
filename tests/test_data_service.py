@@ -8,7 +8,7 @@ class _FakeClient:
         self._candles = candles
         self.calls = []
 
-    async def fetch_candles(self, instrument, granularity="60min", count=500):
+    async def fetch_candles(self, instrument, granularity="daily", count=500):
         self.calls.append((instrument, granularity, count))
         return self._candles
 
@@ -31,3 +31,12 @@ def test_sync_candles_fetches_and_persists():
     assert count == 2
     assert store.saved == fake_candles
     assert client.calls == [("EUR_USD", "60min", 500)]
+
+
+def test_sync_candles_defaults_to_daily_granularity():
+    client = _FakeClient([])
+    store = _FakeStore()
+
+    asyncio.run(sync_candles(client, store, "EUR_USD"))
+
+    assert client.calls == [("EUR_USD", "daily", 500)]

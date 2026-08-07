@@ -92,6 +92,8 @@ Dette er viktigere enn selve strategivalget for målet om stabil, langsiktig plu
 
 **Merknad om paper trading:** Boten bruker ingen meglers demo-/sandbox-API. Execution-laget har sin egen lokale fill-simulator (`execution/backtest.py` + `execution/portfolio.py`) som simulerer ordre med gebyr/slippage, matet med Alpha Vantage sine kurser. Det gir paper trading uten meglerkonto og uten søknadsprosess. Alpha Vantage sin gratis tier er begrenset til ca. 25 kall/dag – det setter et reelt tak på synkroniseringsfrekvens/antall par før dette eventuelt må håndteres med køing/backoff eller en betalt tier.
 
+**Bekreftet mot ekte respons (2026-08-07):** `FX_INTRADAY` krever en betalt Alpha Vantage-plan (gratis-nøkkel får `"Information": "This is a premium endpoint"`). `FX_DAILY` fungerer på gratis tier og returnerer ekte daglige OHLC-kurser. `data/alpha_vantage.py` bruker derfor `"daily"` som standard granularitet – det passer også godt med målet om ikke å jage daglig avkastning.
+
 **Kostnad:** de fleste komponentene er gratis/open source. Reell kostnad er VPS (ca. 50–150 kr/mnd), eventuelt sanntids tick-data, og handelsgebyrer (som løper uavhengig av bot). Handelsgebyrer relativt til handelsfrekvens er det som faktisk påvirker lønnsomheten mest – ikke verktøykostnadene.
 
 ---
