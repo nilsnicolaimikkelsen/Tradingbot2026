@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "trading-bot"
+version = "0.1.0"
+description = "Layered crypto trading bot: data, strategy, risk, execution, monitoring."
+requires-python = ">=3.11"
+dependencies = [
+    "ccxt",
+    "vectorbt",
+    "asyncpg",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["data", "strategy", "risk", "execution", "monitoring"]
