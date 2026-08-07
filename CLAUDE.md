@@ -82,13 +82,15 @@ Dette er viktigere enn selve strategivalget for målet om stabil, langsiktig plu
 | Komponent | Valg | Kommentar |
 |---|---|---|
 | Språk | Python | Dominerende økosystem, ikke behov for lav-latency-språk |
-| Exchange/broker-API | **Valgt: OANDA v20 REST API (forex/CFD)**, practice-konto for paper trading. Andre alternativer vurdert: `ccxt` (krypto), `ib_insync` (Interactive Brokers), Alpaca SDK (aksjer) | Velges ut fra hvilket marked |
+| Markedsdata | **Valgt: Alpha Vantage** (gratis, kun e-post for API-nøkkel, ingen KYC/meglersøknad). Vurdert og forkastet: OANDA v20 (for lang søknadsprosess), Capital.com (kontoen ble stengt), `ccxt` (krypto) | Se merknad om paper trading under |
 | Backtesting | [Nautilus Trader](https://nautilustrader.io) | Event-drevet, samme kode for backtest og live. Alternativ: `vectorbt` eller `backtrader` for enklere oppsett |
 | Database | PostgreSQL / TimescaleDB | Handelsdata og botens tilstand |
 | Orkestrering | Langkjørende `asyncio`-prosess | Ikke cron-jobber som starter/stopper |
 | Containerisering | Docker | Reproduserbar deploy |
 | Hosting | Liten, stabil VPS | Uptime kritisk – ikke egen PC |
 | Secrets | Miljøvariabler / vault | Aldri API-nøkler i kode |
+
+**Merknad om paper trading:** Boten bruker ingen meglers demo-/sandbox-API. Execution-laget har sin egen lokale fill-simulator (`execution/backtest.py` + `execution/portfolio.py`) som simulerer ordre med gebyr/slippage, matet med Alpha Vantage sine kurser. Det gir paper trading uten meglerkonto og uten søknadsprosess. Alpha Vantage sin gratis tier er begrenset til ca. 25 kall/dag – det setter et reelt tak på synkroniseringsfrekvens/antall par før dette eventuelt må håndteres med køing/backoff eller en betalt tier.
 
 **Kostnad:** de fleste komponentene er gratis/open source. Reell kostnad er VPS (ca. 50–150 kr/mnd), eventuelt sanntids tick-data, og handelsgebyrer (som løper uavhengig av bot). Handelsgebyrer relativt til handelsfrekvens er det som faktisk påvirker lønnsomheten mest – ikke verktøykostnadene.
 
