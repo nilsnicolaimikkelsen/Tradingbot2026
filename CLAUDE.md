@@ -82,7 +82,7 @@ Dette er viktigere enn selve strategivalget for målet om stabil, langsiktig plu
 | Komponent | Valg | Kommentar |
 |---|---|---|
 | Språk | Python | Dominerende økosystem, ikke behov for lav-latency-språk |
-| Exchange/broker-API | `ccxt` (krypto) / `ib_insync` (Interactive Brokers) / Alpaca SDK (aksjer) | Velges ut fra hvilket marked |
+| Exchange/broker-API | **Valgt: OANDA v20 REST API (forex/CFD)**, practice-konto for paper trading. Andre alternativer vurdert: `ccxt` (krypto), `ib_insync` (Interactive Brokers), Alpaca SDK (aksjer) | Velges ut fra hvilket marked |
 | Backtesting | [Nautilus Trader](https://nautilustrader.io) | Event-drevet, samme kode for backtest og live. Alternativ: `vectorbt` eller `backtrader` for enklere oppsett |
 | Database | PostgreSQL / TimescaleDB | Handelsdata og botens tilstand |
 | Orkestrering | Langkjørende `asyncio`-prosess | Ikke cron-jobber som starter/stopper |

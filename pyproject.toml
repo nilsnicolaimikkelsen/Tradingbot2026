@@ -5,10 +5,10 @@ build-backend = "hatchling.build"
 [project]
 name = "trading-bot"
 version = "0.1.0"
-description = "Layered crypto trading bot: data, strategy, risk, execution, monitoring."
+description = "Layered forex trading bot: data, strategy, risk, execution, monitoring."
 requires-python = ">=3.11"
 dependencies = [
-    "ccxt",
+    "aiohttp",
     "vectorbt",
     "asyncpg",
     "python-dotenv",

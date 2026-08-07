@@ -1,18 +1,17 @@
-"""Orchestration: fetch candles from an exchange and persist them."""
+"""Orchestration: fetch candles from OANDA and persist them."""
 
-from data.exchange import ExchangeClient
+from data.oanda import OandaClient
 from data.storage import CandleStore
 
 
 async def sync_candles(
-    exchange: ExchangeClient,
+    client: OandaClient,
     store: CandleStore,
-    symbol: str,
-    timeframe: str = "1h",
-    since: int | None = None,
-    limit: int = 500,
+    instrument: str,
+    granularity: str = "H1",
+    count: int = 500,
 ) -> int:
-    """Fetch OHLCV candles from the exchange and upsert them into storage. Returns the number fetched."""
-    candles = await exchange.fetch_ohlcv(symbol, timeframe=timeframe, since=since, limit=limit)
+    """Fetch OHLCV candles from OANDA and upsert them into storage. Returns the number fetched."""
+    candles = await client.fetch_candles(instrument, granularity=granularity, count=count)
     await store.upsert_candles(candles)
     return len(candles)

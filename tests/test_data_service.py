@@ -3,13 +3,13 @@ import asyncio
 from data.service import sync_candles
 
 
-class _FakeExchange:
+class _FakeClient:
     def __init__(self, candles):
         self._candles = candles
         self.calls = []
 
-    async def fetch_ohlcv(self, symbol, timeframe="1h", since=None, limit=500):
-        self.calls.append((symbol, timeframe, since, limit))
+    async def fetch_candles(self, instrument, granularity="H1", count=500):
+        self.calls.append((instrument, granularity, count))
         return self._candles
 
 
@@ -23,11 +23,11 @@ class _FakeStore:
 
 def test_sync_candles_fetches_and_persists():
     fake_candles = ["candle-1", "candle-2"]
-    exchange = _FakeExchange(fake_candles)
+    client = _FakeClient(fake_candles)
     store = _FakeStore()
 
-    count = asyncio.run(sync_candles(exchange, store, "BTC/USDT", timeframe="1h"))
+    count = asyncio.run(sync_candles(client, store, "EUR_USD", granularity="H1"))
 
     assert count == 2
     assert store.saved == fake_candles
-    assert exchange.calls == [("BTC/USDT", "1h", None, 500)]
+    assert client.calls == [("EUR_USD", "H1", 500)]
