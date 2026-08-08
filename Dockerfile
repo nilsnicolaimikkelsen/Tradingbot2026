@@ -8,6 +8,7 @@ COPY strategy ./strategy
 COPY risk ./risk
 COPY execution ./execution
 COPY monitoring ./monitoring
+COPY scripts ./scripts
 COPY main.py ./
 
 RUN pip install --no-cache-dir .
