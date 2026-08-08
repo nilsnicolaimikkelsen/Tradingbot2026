@@ -1,10 +1,105 @@
 {
-  "timestamp": "2026-08-08T08:14:08.412466+00:00",
-  "instrument": "EUR_USD",
-  "in_position": false,
-  "last_action": "no_signal",
-  "equity": 10000.0,
+  "timestamp": "2026-08-08T08:46:07.323175+00:00",
   "kill_switch_triggered": false,
   "kill_switch_reason": "",
-  "error": null
+  "error": "USD_JPY: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints; AUD_USD: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints; USD_CAD: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints; USD_CHF: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints; NZD_USD: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints",
+  "total_equity": 10000.0,
+  "lines": [
+    {
+      "instrument": "EUR_USD",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "EUR_USD",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "GBP_USD",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "GBP_USD",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_JPY",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_JPY",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "AUD_USD",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "AUD_USD",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_CAD",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_CAD",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_CHF",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "USD_CHF",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "NZD_USD",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "NZD_USD",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "EUR_GBP",
+      "strategy": "trend_following",
+      "in_position": false,
+      "equity": 625.0
+    },
+    {
+      "instrument": "EUR_GBP",
+      "strategy": "mean_reversion",
+      "in_position": false,
+      "equity": 625.0
+    }
+  ]
 }
