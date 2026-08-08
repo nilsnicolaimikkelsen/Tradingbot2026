@@ -1,9 +1,9 @@
 {
-  "timestamp": null,
-  "instrument": null,
-  "in_position": null,
-  "last_action": "not_started",
-  "equity": null,
+  "timestamp": "2026-08-08T08:14:08.412466+00:00",
+  "instrument": "EUR_USD",
+  "in_position": false,
+  "last_action": "no_signal",
+  "equity": 10000.0,
   "kill_switch_triggered": false,
   "kill_switch_reason": "",
   "error": null
