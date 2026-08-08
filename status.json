@@ -1,0 +1,10 @@
+{
+  "timestamp": null,
+  "instrument": null,
+  "in_position": null,
+  "last_action": "not_started",
+  "equity": null,
+  "kill_switch_triggered": false,
+  "kill_switch_reason": "",
+  "error": null
+}
