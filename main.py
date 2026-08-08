@@ -29,7 +29,10 @@ from strategy.trend_following import TrendFollowingStrategy
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("trading_bot")
 
-CHECK_INTERVAL_SECONDS = 6 * 60 * 60  # FX_DAILY updates once/day; a few checks/day is enough
+# Alpha Vantage's free tier allows ~25 calls/day. Every check makes 1 call, so the
+# default (2h -> 12 calls/day) leaves comfortable headroom. Override via
+# CHECK_INTERVAL_SECONDS if you add more instruments or want a tighter/looser budget.
+DEFAULT_CHECK_INTERVAL_SECONDS = 2 * 60 * 60
 STATUS_REPO_OWNER = "nilsnicolaimikkelsen"
 STATUS_REPO_NAME = "Tradingbot2026"
 
@@ -148,6 +151,7 @@ async def main() -> None:
     await store.connect()
 
     instrument = os.environ.get("INSTRUMENT", "EUR_USD")
+    check_interval_seconds = int(os.environ.get("CHECK_INTERVAL_SECONDS", DEFAULT_CHECK_INTERVAL_SECONDS))
     strategy = TrendFollowingStrategy(fast_window=20, slow_window=50)
     kill_switch = KillSwitch()
     gatekeeper = RiskGatekeeper(RiskLimits(), kill_switch)
@@ -193,7 +197,7 @@ async def main() -> None:
                     status_publisher, instrument, in_position, last_action, portfolio, kill_switch, error
                 )
 
-            await asyncio.sleep(CHECK_INTERVAL_SECONDS)
+            await asyncio.sleep(check_interval_seconds)
     finally:
         await client.close()
         await store.close()
