@@ -62,25 +62,28 @@ def test_run_once_enters_position_on_fresh_entry_signal():
     prices = ([100] * 20 + list(range(100, 140)))[:22]
     args = _setup(_candles(prices))
 
-    in_position = asyncio.run(run_once(*args, "EUR_USD", False))
+    result = asyncio.run(run_once(*args, "EUR_USD", False))
 
-    assert in_position is True
+    assert result.in_position is True
+    assert result.last_action == "bought"
     assert args[6].position > 0
 
 
 def test_run_once_returns_false_when_not_enough_history():
     args = _setup(_candles([100] * 5))
 
-    in_position = asyncio.run(run_once(*args, "EUR_USD", False))
+    result = asyncio.run(run_once(*args, "EUR_USD", False))
 
-    assert in_position is False
+    assert result.in_position is False
+    assert result.last_action == "not_enough_history"
     assert args[6].position == 0
 
 
 def test_run_once_stays_flat_without_a_signal():
     args = _setup(_candles([100] * 30))
 
-    in_position = asyncio.run(run_once(*args, "EUR_USD", False))
+    result = asyncio.run(run_once(*args, "EUR_USD", False))
 
-    assert in_position is False
+    assert result.in_position is False
+    assert result.last_action == "no_signal"
     assert args[6].position == 0
