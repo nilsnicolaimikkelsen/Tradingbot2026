@@ -1,7 +1,12 @@
 from datetime import datetime, timezone
 
 from data.models import Candle
-from strategy.indicators import average_true_range, rolling_mean
+from strategy.indicators import (
+    average_true_range,
+    bollinger_bands,
+    relative_strength_index,
+    rolling_mean,
+)
 
 
 def _candle(o, h, l, c):
@@ -35,3 +40,37 @@ def test_average_true_range_basic():
     assert result[0] is None
     assert result[1] is not None and result[1] > 0
     assert result[2] is not None and result[2] > 0
+
+
+def test_rsi_is_high_after_only_gains():
+    candles = [_candle(p, p, p, p) for p in range(1, 20)]  # steadily rising closes
+
+    result = relative_strength_index(candles, window=14)
+
+    assert result[-1] is not None
+    assert result[-1] == 100.0
+
+
+def test_rsi_is_low_after_only_losses():
+    candles = [_candle(p, p, p, p) for p in range(20, 1, -1)]  # steadily falling closes
+
+    result = relative_strength_index(candles, window=14)
+
+    assert result[-1] == 0.0
+
+
+def test_rsi_is_mid_range_for_flat_prices():
+    candles = [_candle(10, 10, 10, 10) for _ in range(20)]
+
+    result = relative_strength_index(candles, window=14)
+
+    assert result[-1] == 50.0
+
+
+def test_bollinger_bands_bracket_the_mean():
+    values = [10, 11, 9, 10, 12, 8, 10, 11, 9, 10]
+
+    lower, mid, upper = bollinger_bands(values, window=5, num_std=2.0)
+
+    assert lower[4] is not None
+    assert lower[4] < mid[4] < upper[4]
