@@ -4,6 +4,8 @@ No broker account needed — this only fetches prices. Paper trading is done loc
 execution.backtest.BacktestExecutor + execution.portfolio.Portfolio, fed by these candles.
 """
 
+import asyncio
+import time
 from datetime import datetime, timezone
 
 import aiohttp
@@ -23,16 +25,34 @@ class AlphaVantageError(RuntimeError):
 
 
 class AlphaVantageClient:
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, min_request_interval: float = 1.2):
         self._api_key = api_key
         self._session: aiohttp.ClientSession | None = None
+        # Alpha Vantage enforces a 1-request/second burst limit even on the free
+        # tier (separate from the ~25/day cap). Confirmed empirically: calling it
+        # in a tight loop across several instruments triggers "Please consider
+        # spreading out your free API requests more sparingly". Throttling here,
+        # inside the client, means every caller (main.py, the analysis script,
+        # the smoke test) is protected without having to remember to space calls.
+        self._min_request_interval = min_request_interval
+        self._last_request_time: float | None = None
 
     async def _get_session(self) -> aiohttp.ClientSession:
         if self._session is None:
             self._session = aiohttp.ClientSession()
         return self._session
 
+    async def _throttle(self) -> None:
+        now = time.monotonic()
+        if self._last_request_time is not None:
+            wait = self._min_request_interval - (now - self._last_request_time)
+            if wait > 0:
+                await asyncio.sleep(wait)
+                now = time.monotonic()
+        self._last_request_time = now
+
     async def fetch_candles(self, instrument: str, granularity: str = "daily", count: int = 500) -> list[Candle]:
+        await self._throttle()
         from_symbol, to_symbol = instrument.split("_")
         outputsize = "full" if count > 100 else "compact"
 
