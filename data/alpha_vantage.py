@@ -25,7 +25,7 @@ class AlphaVantageError(RuntimeError):
 
 
 class AlphaVantageClient:
-    def __init__(self, api_key: str, min_request_interval: float = 1.2):
+    def __init__(self, api_key: str, min_request_interval: float = 2.0):
         self._api_key = api_key
         self._session: aiohttp.ClientSession | None = None
         # Alpha Vantage enforces a 1-request/second burst limit even on the free
