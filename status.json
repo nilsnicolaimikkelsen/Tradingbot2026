@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-08-12T12:50:29.249543+00:00",
+  "timestamp": "2026-08-13T00:50:42.439332+00:00",
   "kill_switch_triggered": false,
   "kill_switch_reason": "",
-  "error": null,
+  "error": "AUD_USD: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints; USD_CHF: Alpha Vantage did not return time series data: Thank you for using Alpha Vantage! Please consider spreading out your free API requests more sparingly (1 request per second). You may subscribe to any of the premium plans at https://www.alphavantage.co/premium/ to lift the free key rate limit (25 requests per day), raise the per-second burst limit, and instantly unlock all premium endpoints",
   "total_equity": 9997.7994958125,
   "lines": [
     {
