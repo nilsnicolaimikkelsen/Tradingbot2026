@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-08-13T20:03:45.515761+00:00",
+  "timestamp": "2026-08-14T08:04:01.363092+00:00",
   "kill_switch_triggered": false,
   "kill_switch_reason": "",
   "error": null,
-  "total_equity": 9998.001282463672,
+  "total_equity": 9998.348046003963,
   "lines": [
     {
       "instrument": "EUR_USD",
       "strategy": "trend_following",
       "in_position": true,
-      "equity": 623.0012824636724
+      "equity": 623.348046003963
     },
     {
       "instrument": "EUR_USD",
