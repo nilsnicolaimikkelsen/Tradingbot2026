@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-09-01T20:14:09.765135+00:00",
+  "timestamp": "2026-09-02T08:14:26.025831+00:00",
   "kill_switch_triggered": false,
   "kill_switch_reason": "",
   "error": null,
-  "total_equity": 10001.670727597917,
+  "total_equity": 10001.786535957684,
   "lines": [
     {
       "instrument": "EUR_USD",
       "strategy": "trend_following",
       "in_position": true,
-      "equity": 633.6353643659179
+      "equity": 630.8612560435931
     },
     {
       "instrument": "EUR_USD",
@@ -62,8 +62,8 @@
     {
       "instrument": "USD_CAD",
       "strategy": "mean_reversion",
-      "in_position": true,
-      "equity": 620.8632071863583
+      "in_position": false,
+      "equity": 622.7994453943363
     },
     {
       "instrument": "USD_CHF",
@@ -93,7 +93,7 @@
       "instrument": "EUR_GBP",
       "strategy": "trend_following",
       "in_position": true,
-      "equity": 622.1721560456403
+      "equity": 623.1258345197548
     },
     {
       "instrument": "EUR_GBP",
